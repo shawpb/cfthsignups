@@ -12,6 +12,13 @@ import { SignupformComponent } from './signupform/signupform.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { VerifyinfoComponent } from './verifyinfo/verifyinfo.component';
+import { AgencyformComponent } from './agencyform/agencyform.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuardService } from './guards/authguard';
+import { AuthService } from './Services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +27,9 @@ import { MatSliderModule } from '@angular/material/slider';
     FooterComponent,
     MainComponent,
     SignupformComponent,
+    VerifyinfoComponent,
+    AgencyformComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,8 +38,10 @@ import { MatSliderModule } from '@angular/material/slider';
     NgbModule,
     MatSliderModule,
     MatButtonModule,
+    MatExpansionModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [AuthGuardService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <input
+          type="password"
+          id="passwordValue"
+          class="m-3"
+          formControlName="passwordValue"
+        />
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</div>

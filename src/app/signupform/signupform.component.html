@@ -1,7 +1,12 @@
 <div class="container">
   <form>
     <div class="row">
-      <div class="col form-group">
+      <div class="col">
+        <H2>Client Information:</H2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm form-group">
         <input
           type="text"
           class="form-control"
@@ -10,7 +15,7 @@
         />
         <div class="invalid-feedback">First Name is required.</div>
       </div>
-      <div class="col form-group">
+      <div class="col-sm form-group">
         <input
           type="text"
           class="form-control"
@@ -30,7 +35,7 @@
       <div class="invalid-feedback">Street Address is required.</div>
     </div>
     <div class="row">
-      <div class="col form-group">
+      <div class="col-sm form-group">
         <input
           type="text"
           class="form-control"
@@ -39,7 +44,7 @@
         />
         <div class="invalid-feedback">City is required.</div>
       </div>
-      <div class="col form-group">
+      <div class="col-sm form-group">
         <input
           type="text"
           class="form-control"
@@ -59,7 +64,7 @@
       <div class="invalid-feedback">Email Address is required.</div>
     </div>
     <div class="row">
-      <div class="col form-group">
+      <div class="col-sm form-group">
         <input
           type="tel"
           class="form-control"
@@ -68,14 +73,14 @@
         />
         <div class="invalid-feedback">Phone Number is required.</div>
       </div>
-      <div class="col form-group">
+      <div class="col-sm form-group">
         <input
           type="number"
           class="form-control"
           id="familySize"
           min="1"
           max="25"
-          placeholder="Family Size"
+          placeholder="Number of People in Household"
         />
       </div>
     </div>
@@ -127,8 +132,45 @@
         >
       </div>
     </div>
-    <div class="form-group justify-content-center">
-      <button mat-raised-button color="accent">Submit</button>
+    <mat-expansion-panel hideToggle class="mb-3">
+      <mat-expansion-panel-header class="pl-2">
+        <mat-panel-title class="m-0"
+          ><h2 class="m-0">Alternate Pick Up Individual:</h2></mat-panel-title
+        >
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col-sm form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="pickUpFirstNameTextbox"
+            placeholder="First Name"
+          />
+          <div class="invalid-feedback">First Name is required.</div>
+        </div>
+        <div class="col-sm form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="pickUpLastNameTextbox"
+            placeholder="Last Name"
+          />
+          <div class="invalid-feedback">Last Name is required.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="pickUpPhoneTextbox"
+            placeholder="Phone"
+          />
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <div class="form-group">
+      <button mat-raised-button type="submit" color="accent">Submit</button>
     </div>
   </form>
 </div>
