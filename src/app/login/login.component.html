@@ -1,14 +1,25 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-        <input
-          type="password"
-          id="passwordValue"
-          class="m-3"
-          formControlName="passwordValue"
-        />
-        <button mat-raised-button color="primary" type="submit">Login</button>
+      <form (ngSubmit)="onSubmit(passwordValue.value)">
+        <mat-form-field appearance="standard">
+          <input
+            matInput
+            placeholder="Password"
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="passwordValue"
+            id="passwordValue"
+            required
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error>Invalid Password.</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="m-2" type="submit">
+          Login
+        </button>
       </form>
     </div>
   </div>

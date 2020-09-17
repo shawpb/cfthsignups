@@ -1,4 +1,5 @@
 <div class="container">
+  <app-agencyinfo *ngIf="selectedAgency"></app-agencyinfo>
   <form>
     <div class="row">
       <div class="col">
@@ -84,7 +85,7 @@
         />
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" *ngIf="!selectedAgency">
       <label for="qualifyingId"
         >Which of the following qualifying ID can you bring with you when you
         pick up your basket?</label

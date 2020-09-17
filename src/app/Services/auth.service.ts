@@ -11,10 +11,23 @@ export class AuthService {
     // true or false
     // return !this.jwtHelper.isTokenExpired(token);
 
-    if (localStorage.getItem('admin') === 'supersecret') {
+    const adminValue = sessionStorage.getItem('admin');
+
+    if (
+      adminValue !== undefined &&
+      adminValue !== null &&
+      this.ValidatePassword(adminValue)
+    ) {
       return true;
     }
 
+    return false;
+  }
+
+  public ValidatePassword(passwordValue: string): boolean {
+    if (passwordValue === 'supersecret') {
+      return true;
+    }
     return false;
   }
 }

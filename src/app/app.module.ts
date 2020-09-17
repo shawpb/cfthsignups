@@ -13,12 +13,20 @@ import { SignupformComponent } from './signupform/signupform.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {
+  MatFormFieldModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
 import { VerifyinfoComponent } from './verifyinfo/verifyinfo.component';
 import { AgencyformComponent } from './agencyform/agencyform.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './guards/authguard';
 import { AuthService } from './Services/auth.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgencyinfoComponent } from './agencyinfo/agencyinfo.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +38,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     VerifyinfoComponent,
     AgencyformComponent,
     LoginComponent,
+    AgencyinfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +49,22 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatExpansionModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    FormsModule,
+    MatInputModule,
+    MatIconModule,
   ],
-  providers: [AuthGuardService, AuthService],
+  providers: [
+    AuthGuardService,
+    AuthService,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'fill' },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

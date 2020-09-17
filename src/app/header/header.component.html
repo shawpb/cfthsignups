@@ -32,6 +32,9 @@
           >Contact</a
         >
       </li>
+      <li class="nav-item" *ngIf="hasAgency()">
+        <a class="nav-link" href="#" (click)="logout()">Log out</a>
+      </li>
     </ul>
   </div>
 </nav>

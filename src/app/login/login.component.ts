@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../Services/auth.service';
+import { AgencyService } from '../Services/agency.service';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +10,21 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
-  constructor(public router: Router, public formBuilder: FormBuilder) {
-    this.loginForm = this.formBuilder.group({ passwordValue: '' });
-  }
-
-  loginForm;
+  passwordValue = new FormControl('', [Validators.required, Validators.min(3)]);
+  constructor(
+    public router: Router,
+    public authService: AuthService,
+    public agencyService: AgencyService
+  ) {}
+  hide = true;
 
   ngOnInit(): void {}
 
-  onSubmit(formData) {
-    localStorage.setItem('admin', formData.passwordValue);
-    this.router.navigate(['agency']);
+  onSubmit(passwordValue: string): void {
+    if (this.authService.ValidatePassword(passwordValue)) {
+      const aId = this.agencyService.GetAgencyByPassword(passwordValue);
+      this.agencyService.SetCurrentAgency(aId.id);
+      this.router.navigate(['signup']);
+    }
   }
 }
