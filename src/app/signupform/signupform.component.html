@@ -171,7 +171,14 @@
       </div>
     </mat-expansion-panel>
     <div class="form-group">
-      <button mat-raised-button type="submit" color="accent">Submit</button>
+      <button
+        mat-raised-button
+        type="submit"
+        (click)="SaveClient()"
+        color="accent"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </div>

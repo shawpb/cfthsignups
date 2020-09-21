@@ -27,6 +27,7 @@ import { AuthGuardService } from './guards/authguard';
 import { AuthService } from './Services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgencyinfoComponent } from './agencyinfo/agencyinfo.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,8 @@ import { AgencyinfoComponent } from './agencyinfo/agencyinfo.component';
     FormsModule,
     MatInputModule,
     MatIconModule,
+    BrowserModule,
+    HttpClientModule,
   ],
   providers: [
     AuthGuardService,

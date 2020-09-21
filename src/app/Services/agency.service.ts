@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Agency } from '../Models/agency';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AgencyService {
+  @Output() getSelectedAgency: EventEmitter<Agency> = new EventEmitter<
+    Agency
+  >();
+
   Agencylist: Agency[] = [
     new Agency(
       '7c9f0217-dc3a-4f70-8332-323138e8d65a',
@@ -62,11 +66,17 @@ export class AgencyService {
     return currentAgency;
   }
 
-  SetCurrentAgency(aId: string): void {
-    sessionStorage.setItem('aId', aId);
+  SetCurrentAgency(a: Agency): void {
+    sessionStorage.setItem('aId', a.id);
+    this.getSelectedAgency.emit(a);
   }
 
   Logout(): void {
     sessionStorage.removeItem('aId');
+    this.getSelectedAgency.emit(null);
+  }
+
+  getEmitter() {
+    return this.getSelectedAgency;
   }
 }

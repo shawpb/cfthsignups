@@ -10,9 +10,9 @@ import { AgencyService } from '../Services/agency.service';
 export class AgencyinfoComponent implements OnInit {
   public selectedAgency: Agency;
 
-  constructor(public agencyService: AgencyService) {
+  constructor(public agencyService: AgencyService) {}
+
+  ngOnInit(): void {
     this.selectedAgency = this.agencyService.GetCurrentAgency();
   }
-
-  ngOnInit(): void {}
 }

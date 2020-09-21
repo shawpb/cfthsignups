@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Agency } from '../Models/agency';
 import { AgencyService } from '../Services/agency.service';
 
@@ -10,14 +11,24 @@ import { AgencyService } from '../Services/agency.service';
 export class HeaderComponent implements OnInit {
   public selectedAgency: Agency;
 
-  constructor(public agencyService: AgencyService) {
-    this.selectedAgency = this.agencyService.GetCurrentAgency();
-  }
+  constructor(public agencyService: AgencyService, public router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.agencyService.getEmitter().subscribe((a: Agency) => {
+      this.selectedAgency = a;
+    });
+  }
 
   logout(): void {
     this.agencyService.Logout();
+  }
+
+  agencyClick(): void {
+    if (this.selectedAgency) {
+      this.router.navigate(['/signup']);
+    } else {
+      this.router.navigate(['/agency']);
+    }
   }
 
   hasAgency(): boolean {

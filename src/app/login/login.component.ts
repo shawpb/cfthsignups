@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   onSubmit(passwordValue: string): void {
     if (this.authService.ValidatePassword(passwordValue)) {
       const aId = this.agencyService.GetAgencyByPassword(passwordValue);
-      this.agencyService.SetCurrentAgency(aId.id);
+      this.agencyService.SetCurrentAgency(aId);
       this.router.navigate(['signup']);
     }
   }
