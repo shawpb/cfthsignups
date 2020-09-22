@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Globals } from '../globals';
@@ -9,6 +9,12 @@ import { Client } from '../Models/Client';
 })
 export class ClientService {
   constructor(public http: HttpClient, public globals: Globals) {}
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   getClients(): Client[] {
     let clients: Client[];
@@ -31,6 +37,10 @@ export class ClientService {
   }
 
   AddClient(newClient: Client): void {
-    this.http.put(this.globals.apiBaseUrl, newClient);
+    let addClientResponse: any;
+    this.http
+      .put<Client>(this.globals.apiBaseUrl, newClient, this.httpOptions)
+      .subscribe((x) => (addClientResponse = x));
+    console.log(addClientResponse);
   }
 }

@@ -13,6 +13,8 @@
           class="form-control"
           id="firstNameTextbox"
           placeholder="First Name"
+          [(ngModel)]="newClient.FirstName"
+          name="firstName"
         />
         <div class="invalid-feedback">First Name is required.</div>
       </div>
@@ -22,6 +24,8 @@
           class="form-control"
           id="lastNameTextbox"
           placeholder="Last Name"
+          [(ngModel)]="newClient.LastName"
+          name="lastName"
         />
         <div class="invalid-feedback">Last Name is required.</div>
       </div>
@@ -32,6 +36,8 @@
         class="form-control"
         id="streetAddressTextbox"
         placeholder="Street Address"
+        [(ngModel)]="newClient.StreetAddress"
+        name="streetAddress"
       />
       <div class="invalid-feedback">Street Address is required.</div>
     </div>
@@ -42,6 +48,8 @@
           class="form-control"
           id="cityTextbox"
           placeholder="City"
+          [(ngModel)]="newClient.City"
+          name="city"
         />
         <div class="invalid-feedback">City is required.</div>
       </div>
@@ -51,6 +59,8 @@
           class="form-control"
           id="zipCodeTextbox"
           placeholder="Zip Code"
+          [(ngModel)]="newClient.Zip"
+          name="zip"
         />
         <div class="invalid-feedback">Zip Code is required.</div>
       </div>
@@ -61,6 +71,8 @@
         class="form-control"
         id="emailTextbox"
         placeholder="Contact Email Address"
+        [(ngModel)]="newClient.Email"
+        name="email"
       />
       <div class="invalid-feedback">Email Address is required.</div>
     </div>
@@ -71,6 +83,8 @@
           class="form-control"
           id="phoneTextbox"
           placeholder="Phone Number"
+          [(ngModel)]="newClient.Phone"
+          name="phone"
         />
         <div class="invalid-feedback">Phone Number is required.</div>
       </div>
@@ -82,6 +96,8 @@
           min="1"
           max="25"
           placeholder="Number of People in Household"
+          [(ngModel)]="newClient.FamilySize"
+          name="familySize"
         />
       </div>
     </div>
@@ -146,6 +162,8 @@
             class="form-control"
             id="pickUpFirstNameTextbox"
             placeholder="First Name"
+            [(ngModel)]="newClient.AlternateFirstName"
+            name="altFirstName"
           />
           <div class="invalid-feedback">First Name is required.</div>
         </div>
@@ -155,6 +173,8 @@
             class="form-control"
             id="pickUpLastNameTextbox"
             placeholder="Last Name"
+            [(ngModel)]="newClient.AlternateLastName"
+            name="altLastName"
           />
           <div class="invalid-feedback">Last Name is required.</div>
         </div>
@@ -166,6 +186,8 @@
             class="form-control"
             id="pickUpPhoneTextbox"
             placeholder="Phone"
+            [(ngModel)]="newClient.AlternatePhone"
+            name="altPhone"
           />
         </div>
       </div>

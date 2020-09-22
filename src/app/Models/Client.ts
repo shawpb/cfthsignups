@@ -7,6 +7,7 @@ export class Client {
   public Zip: string;
   public Email: string;
   public Phone: string;
+  public FamilySize: number;
   public AlternateFirstName: string;
   public AlternateLastName: string;
   public AlternatePhone: string;

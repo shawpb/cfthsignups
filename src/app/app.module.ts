@@ -28,6 +28,7 @@ import { AuthService } from './Services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgencyinfoComponent } from './agencyinfo/agencyinfo.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Globals } from './globals';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     AuthGuardService,
     AuthService,
+    Globals,
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },

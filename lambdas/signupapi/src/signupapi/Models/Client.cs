@@ -10,6 +10,7 @@ public class Client
     public string Zip;
     public string Email;
     public string Phone;
+    public int FamilySize;
 
     public QualifyingId[] FormsOfId;
 
