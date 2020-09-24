@@ -11,7 +11,11 @@ import { AgencyService } from '../Services/agency.service';
 export class HeaderComponent implements OnInit {
   public selectedAgency: Agency;
 
-  constructor(public agencyService: AgencyService, public router: Router) {}
+  constructor(public agencyService: AgencyService, public router: Router) {
+    if (this.selectedAgency === null || this.selectedAgency === undefined) {
+      this.selectedAgency = this.agencyService.GetCurrentAgency();
+    }
+  }
 
   ngOnInit(): void {
     this.agencyService.getEmitter().subscribe((a: Agency) => {

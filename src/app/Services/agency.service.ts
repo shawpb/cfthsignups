@@ -12,7 +12,7 @@ export class AgencyService {
   Agencylist: Agency[] = [
     new Agency(
       '7c9f0217-dc3a-4f70-8332-323138e8d65a',
-      'Food Provider',
+      'SICM',
       'Jones',
       'Peter',
       '518-234-2345'

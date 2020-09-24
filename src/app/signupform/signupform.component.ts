@@ -14,6 +14,7 @@ export class SignupformComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   public selectedAgency: Agency;
+  public pickupSelection: string;
   newClient: Client = new Client();
 
   constructor(
@@ -26,6 +27,16 @@ export class SignupformComponent implements OnInit {
   }
 
   SaveClient(): void {
+    if (this.selectedAgency !== null && this.selectedAgency !== undefined) {
+      this.newClient.Agency = this.selectedAgency.name;
+    }
     this.clientService.AddClient(this.newClient);
+  }
+
+  showAlternate(): boolean {
+    if (this.pickupSelection === 'alternate') {
+      return true;
+    }
+    return false;
   }
 }

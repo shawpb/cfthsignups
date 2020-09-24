@@ -12,10 +12,19 @@ public class Client
     public string Phone;
     public int FamilySize;
 
-    public QualifyingId[] FormsOfId;
+    public bool HeapLetter;
+    public bool CommunityReferral;
+    public bool BenefitCard;
+    public bool SSILetter;
+    public bool WICCard;
+    public bool Unemployment;
+    public bool MuniHousing;
+    public bool SsdLetter;
 
     public string AlternateFirstName;
-    public string AlternateALastName;
+    public string AlternateLastName;
     public string AlternatePhone;
+
+    public string Agency;
     public DateTime CreatedTimestamp { get; set; }
 }

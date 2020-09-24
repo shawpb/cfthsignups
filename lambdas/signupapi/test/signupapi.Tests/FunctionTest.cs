@@ -45,8 +45,17 @@ namespace signupapi.Tests
 
             // Add a new client
             Client newClient = new Client();
-            newClient.FirstName = "ClientFirstName";
-            newClient.LastName = "Client Last Name";
+            newClient.FirstName = "FirstName";
+            newClient.LastName = "LastName";
+            newClient.StreetAddress = "123 Main Street";
+            newClient.City = "Mainville";
+            newClient.Zip = "12345";
+            newClient.Phone = "518-123-4567";
+            newClient.Email = "bob@aol.com";
+            newClient.FamilySize = 13;
+            newClient.AlternateFirstName = "AltFirstName";
+            newClient.AlternateLastName = "AltLastName";
+            newClient.AlternatePhone = "518-987-6543";
 
             request = new APIGatewayProxyRequest
             {
@@ -70,7 +79,20 @@ namespace signupapi.Tests
             Client oldClient = JsonConvert.DeserializeObject<Client>(response.Body);
             Assert.Equal(newClient.FirstName, oldClient.FirstName);
             Assert.Equal(newClient.LastName, oldClient.LastName);
-
+            Assert.Equal(newClient.StreetAddress, oldClient.StreetAddress);
+            Assert.Equal(newClient.City, oldClient.City);
+            Assert.Equal(newClient.Zip, oldClient.Zip);
+            Assert.Equal(newClient.Phone, oldClient.Phone);
+            Assert.Equal(newClient.Email, oldClient.Email);
+            Assert.Equal(newClient.HeapLetter, oldClient.HeapLetter);
+            Assert.Equal(newClient.CommunityReferral, oldClient.CommunityReferral);
+            Assert.Equal(newClient.BenefitCard, oldClient.BenefitCard);
+            Assert.Equal(newClient.SSILetter, oldClient.SSILetter);
+            Assert.Equal(newClient.WICCard, oldClient.WICCard);
+            Assert.Equal(newClient.Unemployment, oldClient.Unemployment);
+            Assert.Equal(newClient.MuniHousing, oldClient.MuniHousing);
+            Assert.Equal(newClient.SsdLetter, oldClient.SsdLetter);
+            Assert.Equal(newClient.Agency, oldClient.Agency);
             // List the clients
             request = new APIGatewayProxyRequest
             {
@@ -83,7 +105,20 @@ namespace signupapi.Tests
             Assert.Single(clients);
             Assert.Equal(newClient.FirstName, clients[0].FirstName);
             Assert.Equal(newClient.LastName, clients[0].LastName);
-
+            Assert.Equal(newClient.StreetAddress, clients[0].StreetAddress);
+            Assert.Equal(newClient.City, clients[0].City);
+            Assert.Equal(newClient.Zip, clients[0].Zip);
+            Assert.Equal(newClient.Phone, clients[0].Phone);
+            Assert.Equal(newClient.Email, clients[0].Email);
+            Assert.Equal(newClient.HeapLetter, clients[0].HeapLetter);
+            Assert.Equal(newClient.CommunityReferral, clients[0].CommunityReferral);
+            Assert.Equal(newClient.BenefitCard, clients[0].BenefitCard);
+            Assert.Equal(newClient.SSILetter, clients[0].SSILetter);
+            Assert.Equal(newClient.WICCard, clients[0].WICCard);
+            Assert.Equal(newClient.Unemployment, clients[0].Unemployment);
+            Assert.Equal(newClient.MuniHousing, clients[0].MuniHousing);
+            Assert.Equal(newClient.SsdLetter, clients[0].SsdLetter);
+            Assert.Equal(newClient.Agency, clients[0].Agency);
 
             // Delete the client
             request = new APIGatewayProxyRequest

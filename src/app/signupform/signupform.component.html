@@ -10,6 +10,7 @@
       <div class="col-sm form-group">
         <input
           type="text"
+          required
           class="form-control"
           id="firstNameTextbox"
           placeholder="First Name"
@@ -101,60 +102,36 @@
         />
       </div>
     </div>
-    <div class="form-group" *ngIf="!selectedAgency">
-      <label for="qualifyingId"
-        >Which of the following qualifying ID can you bring with you when you
-        pick up your basket?</label
-      >
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >HEAP Award Leter</label
-        >
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >Referral from Community Agency or Community Leader</label
-        >
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >Benefit Card</label
-        >
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >SSI Award Leter</label
-        >
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >WIC Card</label
-        >
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >Active, current unemployment information</label
-        >
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" /><label
-          class="form-check-label"
-          >Proof of Residency in Municipal Housing</label
-        >
+    <div class="row mb-3">
+      <div class="col-auto"><h3>Who will pickup the basket?</h3></div>
+      <div class="col">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="whoPicksup"
+            checked="true"
+            value="self"
+            [(ngModel)]="pickupSelection"
+          /><label class="form-check-label">Myself</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="whoPicksup"
+            value="alternate"
+            [(ngModel)]="pickupSelection"
+          /><label class="form-check-label">An Advocate</label>
+        </div>
       </div>
     </div>
-    <mat-expansion-panel hideToggle class="mb-3">
-      <mat-expansion-panel-header class="pl-2">
-        <mat-panel-title class="m-0"
-          ><h2 class="m-0">Alternate Pick Up Individual:</h2></mat-panel-title
-        >
-      </mat-expansion-panel-header>
+    <div *ngIf="showAlternate()">
+      <div class="row">
+        <div class="col">
+          <h2>Alternate Pick Up Individual:</h2>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm form-group">
           <input
@@ -180,7 +157,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm form-group">
+        <div class="col form-group">
           <input
             type="text"
             class="form-control"
@@ -191,7 +168,88 @@
           />
         </div>
       </div>
-    </mat-expansion-panel>
+    </div>
+    <div class="form-group" *ngIf="!selectedAgency">
+      <label for="qualifyingId"
+        >Which of the following qualifying ID can you bring with you when you
+        pick up your basket?</label
+      >
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.HeapLetter"
+          name="heapLetter"
+        /><label class="form-check-label">HEAP Award Leter</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.CommunityReferral"
+          name="communityReferral"
+        /><label class="form-check-label"
+          >Referral from Community Agency or Community Leader</label
+        >
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.BenefitCard"
+          name="benefitCard"
+        /><label class="form-check-label">Benefit Card</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.SSILetter"
+          name="ssiLetter"
+        /><label class="form-check-label">SSI Award Letter</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.WICCard"
+          name="wicCard"
+        /><label class="form-check-label">WIC Card</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.Unemployment"
+          name="unemployment"
+        /><label class="form-check-label"
+          >Active, current unemployment information</label
+        >
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.SsdLetter"
+          name="ssdletter"
+        /><label class="form-check-label">SSD Award Letter</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="newClient.MuniHousing"
+          name="muniHousing"
+        /><label class="form-check-label"
+          >Proof of Residency in Municipal Housing</label
+        >
+      </div>
+      <label class="mt-3"
+        >You must send a copy of your Qualifying ID and Proof of Address to
+        Concerned For The Hungry, PO Box 119, Schenectady, NY 12301-0119</label
+      >
+    </div>
+
     <div class="form-group">
       <button
         mat-raised-button
