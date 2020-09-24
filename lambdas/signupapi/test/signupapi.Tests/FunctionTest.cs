@@ -93,6 +93,10 @@ namespace signupapi.Tests
             Assert.Equal(newClient.MuniHousing, oldClient.MuniHousing);
             Assert.Equal(newClient.SsdLetter, oldClient.SsdLetter);
             Assert.Equal(newClient.Agency, oldClient.Agency);
+            Assert.Equal(newClient.AlternateFirstName, oldClient.AlternateFirstName);
+            Assert.Equal(newClient.AlternateLastName, oldClient.AlternateLastName);
+            Assert.Equal(newClient.AlternatePhone, oldClient.AlternatePhone);
+
             // List the clients
             request = new APIGatewayProxyRequest
             {
@@ -119,6 +123,9 @@ namespace signupapi.Tests
             Assert.Equal(newClient.MuniHousing, clients[0].MuniHousing);
             Assert.Equal(newClient.SsdLetter, clients[0].SsdLetter);
             Assert.Equal(newClient.Agency, clients[0].Agency);
+            Assert.Equal(newClient.AlternateFirstName, clients[0].AlternateFirstName);
+            Assert.Equal(newClient.AlternateLastName, clients[0].AlternateLastName);
+            Assert.Equal(newClient.AlternatePhone, clients[0].AlternatePhone);
 
             // Delete the client
             request = new APIGatewayProxyRequest
