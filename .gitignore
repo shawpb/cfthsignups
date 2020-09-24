@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+lambdas/signupapi/src/signupapi/obj/*
+lambdas/signupapi/src/signupapi/bin/*
+lambdas/signupapi/test/signupapi.Tests/obj/*
+lambdas/signupapi/test/signupapi.Tests/bin/*
