@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
+import { Router } from '@angular/router';
 import { Agency } from '../Models/agency';
 import { Client } from '../Models/Client';
 import { AgencyService } from '../Services/agency.service';
@@ -19,7 +20,8 @@ export class SignupformComponent implements OnInit {
 
   constructor(
     public agencyService: AgencyService,
-    public clientService: ClientService
+    public clientService: ClientService,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +44,13 @@ export class SignupformComponent implements OnInit {
   }
 
   onSubmit(): void {
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.newClient));
+    this.SaveClient();
+    alert(
+      'Successfully saved: ' +
+        this.newClient.FirstName +
+        ' ' +
+        this.newClient.LastName
+    );
+    this.router.navigate(['/']);
   }
 }
