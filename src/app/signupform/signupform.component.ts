@@ -24,6 +24,7 @@ export class SignupformComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedAgency = this.agencyService.GetCurrentAgency();
+    this.pickupSelection = 'self';
   }
 
   SaveClient(): void {
@@ -38,5 +39,9 @@ export class SignupformComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  onSubmit(): void {
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.newClient));
   }
 }

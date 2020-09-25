@@ -1,6 +1,6 @@
 <div class="container">
   <app-agencyinfo *ngIf="selectedAgency"></app-agencyinfo>
-  <form>
+  <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
     <div class="row">
       <div class="col">
         <H2>Client Information:</H2>
@@ -12,10 +12,12 @@
           type="text"
           required
           class="form-control"
+          [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
           id="firstNameTextbox"
           placeholder="First Name"
           [(ngModel)]="newClient.FirstName"
           name="firstName"
+          #firstName="ngModel"
         />
         <div class="invalid-feedback">First Name is required.</div>
       </div>
@@ -23,10 +25,13 @@
         <input
           type="text"
           class="form-control"
+          [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
           id="lastNameTextbox"
           placeholder="Last Name"
           [(ngModel)]="newClient.LastName"
           name="lastName"
+          required
+          #lastName="ngModel"
         />
         <div class="invalid-feedback">Last Name is required.</div>
       </div>
@@ -35,10 +40,13 @@
       <input
         type="text"
         class="form-control"
+        [ngClass]="{ 'is-invalid': f.submitted && streetAddress.invalid }"
         id="streetAddressTextbox"
         placeholder="Street Address"
         [(ngModel)]="newClient.StreetAddress"
+        required
         name="streetAddress"
+        #streetAddress="ngModel"
       />
       <div class="invalid-feedback">Street Address is required.</div>
     </div>
@@ -47,10 +55,13 @@
         <input
           type="text"
           class="form-control"
+          [ngClass]="{ 'is-invalid': f.submitted && city.invalid }"
           id="cityTextbox"
           placeholder="City"
           [(ngModel)]="newClient.City"
           name="city"
+          required
+          #city="ngModel"
         />
         <div class="invalid-feedback">City is required.</div>
       </div>
@@ -58,48 +69,66 @@
         <input
           type="text"
           class="form-control"
+          [ngClass]="{ 'is-invalid': f.submitted && zip.invalid }"
           id="zipCodeTextbox"
           placeholder="Zip Code"
           [(ngModel)]="newClient.Zip"
+          pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)"
+          required
           name="zip"
+          #zip="ngModel"
         />
-        <div class="invalid-feedback">Zip Code is required.</div>
+        <div class="invalid-feedback">A valid Zip Code is required.</div>
       </div>
     </div>
     <div class="form-group">
       <input
         type="email"
         class="form-control"
+        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
         id="emailTextbox"
+        email
+        required
         placeholder="Contact Email Address"
         [(ngModel)]="newClient.Email"
         name="email"
+        #email="ngModel"
       />
-      <div class="invalid-feedback">Email Address is required.</div>
+      <div class="invalid-feedback">Valid Email Address is required.</div>
     </div>
     <div class="row">
       <div class="col-sm form-group">
         <input
           type="tel"
           class="form-control"
+          [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
           id="phoneTextbox"
           placeholder="Phone Number"
           [(ngModel)]="newClient.Phone"
           name="phone"
+          required
+          pattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
+          #phone="ngModel"
         />
-        <div class="invalid-feedback">Phone Number is required.</div>
+        <div class="invalid-feedback">Valid Phone Number is required.</div>
       </div>
       <div class="col-sm form-group">
         <input
           type="number"
           class="form-control"
+          [ngClass]="{ 'is-invalid': f.submitted && familySize.invalid }"
           id="familySize"
           min="1"
           max="25"
           placeholder="Number of People in Household"
           [(ngModel)]="newClient.FamilySize"
           name="familySize"
+          required
+          #familySize="ngModel"
         />
+        <div class="invalid-feedback">
+          A Family Size from 1 to 25 is required.
+        </div>
       </div>
     </div>
     <div class="row mb-3">
@@ -110,7 +139,6 @@
             class="form-check-input"
             type="radio"
             name="whoPicksup"
-            checked="true"
             value="self"
             [(ngModel)]="pickupSelection"
           /><label class="form-check-label">Myself</label>
@@ -122,7 +150,7 @@
             name="whoPicksup"
             value="alternate"
             [(ngModel)]="pickupSelection"
-          /><label class="form-check-label">An Advocate</label>
+          /><label class="form-check-label">An Alternate</label>
         </div>
       </div>
     </div>
@@ -279,8 +307,8 @@
       <div class="col">
         <button
           mat-raised-button
+          class="btn btn-primary"
           type="submit"
-          (click)="SaveClient()"
           color="accent"
         >
           Submit
