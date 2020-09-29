@@ -3,172 +3,22 @@
   <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
     <div class="row">
       <div class="col">
-        <H2>Client Information:</H2>
+        <H2>Client Signup:</H2>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm form-group">
-        <input
-          type="text"
-          required
-          class="form-control"
-          [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
-          id="firstNameTextbox"
-          placeholder="First Name"
-          [(ngModel)]="newClient.FirstName"
-          name="firstName"
-          #firstName="ngModel"
-        />
-        <div class="invalid-feedback">First Name is required.</div>
-      </div>
-      <div class="col-sm form-group">
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
-          id="lastNameTextbox"
-          placeholder="Last Name"
-          [(ngModel)]="newClient.LastName"
-          name="lastName"
-          required
-          #lastName="ngModel"
-        />
-        <div class="invalid-feedback">Last Name is required.</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': f.submitted && streetAddress.invalid }"
-        id="streetAddressTextbox"
-        placeholder="Street Address"
-        [(ngModel)]="newClient.StreetAddress"
-        required
-        name="streetAddress"
-        #streetAddress="ngModel"
-      />
-      <div class="invalid-feedback">Street Address is required.</div>
-    </div>
-    <div class="row">
-      <div class="col-sm form-group">
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': f.submitted && city.invalid }"
-          id="cityTextbox"
-          placeholder="City"
-          [(ngModel)]="newClient.City"
-          name="city"
-          required
-          #city="ngModel"
-        />
-        <div class="invalid-feedback">City is required.</div>
-      </div>
-      <div class="col-sm form-group">
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': f.submitted && zip.invalid }"
-          id="zipCodeTextbox"
-          placeholder="Zip Code"
-          [(ngModel)]="newClient.Zip"
-          pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)"
-          required
-          name="zip"
-          #zip="ngModel"
-        />
-        <div class="invalid-feedback">A valid Zip Code is required.</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <input
-        type="email"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
-        id="emailTextbox"
-        email
-        required
-        placeholder="Contact Email Address"
-        [(ngModel)]="newClient.Email"
-        name="email"
-        #email="ngModel"
-      />
-      <div class="invalid-feedback">Valid Email Address is required.</div>
-    </div>
-    <div class="row">
-      <div class="col-sm form-group">
-        <input
-          type="tel"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
-          id="phoneTextbox"
-          placeholder="Phone Number"
-          [(ngModel)]="newClient.Phone"
-          name="phone"
-          required
-          pattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
-          #phone="ngModel"
-        />
-        <div class="invalid-feedback">Valid Phone Number is required.</div>
-      </div>
-      <div class="col-sm form-group">
-        <input
-          type="number"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': f.submitted && familySize.invalid }"
-          id="familySize"
-          min="1"
-          max="25"
-          placeholder="Number of People in Household"
-          [(ngModel)]="newClient.FamilySize"
-          name="familySize"
-          required
-          #familySize="ngModel"
-        />
-        <div class="invalid-feedback">
-          A Family Size from 1 to 25 is required.
-        </div>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-auto"><h3>Who will pickup the basket?</h3></div>
-      <div class="col">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="whoPicksup"
-            value="self"
-            [(ngModel)]="pickupSelection"
-          /><label class="form-check-label">Myself</label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="whoPicksup"
-            value="alternate"
-            [(ngModel)]="pickupSelection"
-          /><label class="form-check-label">An Alternate</label>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="showAlternate()">
-      <div class="row">
-        <div class="col">
-          <h2>Alternate Pick Up Individual:</h2>
-        </div>
-      </div>
+    <div *ngIf="!verify">
       <div class="row">
         <div class="col-sm form-group">
           <input
             type="text"
+            required
             class="form-control"
-            id="pickUpFirstNameTextbox"
+            [ngClass]="{ 'is-invalid': hasSubmitted && firstName.invalid }"
+            id="firstNameTextbox"
             placeholder="First Name"
-            [(ngModel)]="newClient.AlternateFirstName"
-            name="altFirstName"
+            [(ngModel)]="newClient.FirstName"
+            name="firstName"
+            #firstName="ngModel"
           />
           <div class="invalid-feedback">First Name is required.</div>
         </div>
@@ -176,143 +26,334 @@
           <input
             type="text"
             class="form-control"
-            id="pickUpLastNameTextbox"
+            [ngClass]="{ 'is-invalid': hasSubmitted && lastName.invalid }"
+            id="lastNameTextbox"
             placeholder="Last Name"
-            [(ngModel)]="newClient.AlternateLastName"
-            name="altLastName"
+            [(ngModel)]="newClient.LastName"
+            name="lastName"
+            required
+            #lastName="ngModel"
           />
           <div class="invalid-feedback">Last Name is required.</div>
         </div>
       </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': hasSubmitted && streetAddress.invalid }"
+          id="streetAddressTextbox"
+          placeholder="Street Address"
+          [(ngModel)]="newClient.StreetAddress"
+          required
+          name="streetAddress"
+          #streetAddress="ngModel"
+        />
+        <div class="invalid-feedback">Street Address is required.</div>
+      </div>
       <div class="row">
-        <div class="col form-group">
+        <div class="col-sm form-group">
           <input
             type="text"
             class="form-control"
-            id="pickUpPhoneTextbox"
-            placeholder="Phone"
-            [(ngModel)]="newClient.AlternatePhone"
-            name="altPhone"
+            [ngClass]="{ 'is-invalid': hasSubmitted && city.invalid }"
+            id="cityTextbox"
+            placeholder="City"
+            [(ngModel)]="newClient.City"
+            name="city"
+            required
+            #city="ngModel"
           />
+          <div class="invalid-feedback">City is required.</div>
+        </div>
+        <div class="col-sm form-group">
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': hasSubmitted && zip.invalid }"
+            id="zipCodeTextbox"
+            placeholder="Zip Code"
+            [(ngModel)]="newClient.Zip"
+            pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)"
+            required
+            name="zip"
+            #zip="ngModel"
+          />
+          <div class="invalid-feedback">A valid Zip Code is required.</div>
         </div>
       </div>
-    </div>
-    <div class="form-group row" *ngIf="!selectedAgency">
-      <div class="col">
-        <label for="qualifyingId"
-          >Which of the following qualifying ID can you bring with you when you
-          pick up your basket?</label
-        >
-        <div class="form-check">
+      <div class="form-group">
+        <input
+          type="email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': hasSubmitted && email.invalid }"
+          id="emailTextbox"
+          email
+          required
+          placeholder="Contact Email Address"
+          [(ngModel)]="newClient.Email"
+          name="email"
+          #email="ngModel"
+        />
+        <div class="invalid-feedback">Valid Email Address is required.</div>
+      </div>
+      <div class="row">
+        <div class="col-sm form-group">
           <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.HeapLetter"
-            name="heapLetter"
-          /><label class="form-check-label">HEAP Award Leter</label>
+            type="tel"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': hasSubmitted && phone.invalid }"
+            id="phoneTextbox"
+            placeholder="Phone Number"
+            [(ngModel)]="newClient.Phone"
+            name="phone"
+            required
+            pattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
+            #phone="ngModel"
+          />
+          <div class="invalid-feedback">Valid Phone Number is required.</div>
         </div>
-        <div class="form-check">
+        <div class="col-sm form-group">
           <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.CommunityReferral"
-            name="communityReferral"
-          /><label class="form-check-label"
-            >Referral from Community Agency or Community Leader</label
-          >
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.BenefitCard"
-            name="benefitCard"
-          /><label class="form-check-label">Benefit Card</label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.SSILetter"
-            name="ssiLetter"
-          /><label class="form-check-label">SSI Award Letter</label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.WICCard"
-            name="wicCard"
-          /><label class="form-check-label">WIC Card</label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.Unemployment"
-            name="unemployment"
-          /><label class="form-check-label"
-            >Active, current unemployment information</label
-          >
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.SsdLetter"
-            name="ssdletter"
-          /><label class="form-check-label">SSD Award Letter</label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [(ngModel)]="newClient.MuniHousing"
-            name="muniHousing"
-          /><label class="form-check-label"
-            >Proof of Residency in Municipal Housing</label
-          >
+            type="number"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': hasSubmitted && familySize.invalid }"
+            id="familySize"
+            min="1"
+            max="25"
+            placeholder="Number of People in Household"
+            [(ngModel)]="newClient.FamilySize"
+            name="familySize"
+            required
+            #familySize="ngModel"
+          />
+          <div class="invalid-feedback">
+            A Family Size from 1 to 25 is required.
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <p class="mt-3">
-              You must email or mail a copy of your Qualifying ID and Proof of
-              Address.
-            </p>
+      <div class="row mb-3">
+        <div class="col-auto"><h3>Who will pickup the basket?</h3></div>
+        <div class="col">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="whoPicksup"
+              value="self"
+              [(ngModel)]="pickupSelection"
+            /><label class="form-check-label">Myself</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="whoPicksup"
+              value="alternate"
+              [(ngModel)]="pickupSelection"
+            /><label class="form-check-label">Someone Else</label>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showAlternate()">
+        <div class="row">
+          <div class="col">
+            <h2>Name of Person Picking up the basket:</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col-md mt-2 text-center">
-            <h3 class="m-1">Mailing Address:</h3>
-            <p class="m-0">Concerned For The Hungry</p>
-            <p class="m-0">PO Box 119, Schenectady, NY 12301-0119</p>
+          <div class="col-sm form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="pickUpFirstNameTextbox"
+              placeholder="First Name"
+              [ngClass]="{
+                'is-invalid': hasSubmitted && altFirstName.invalid
+              }"
+              [required]="'whoPicksup === \'alternate\''"
+              [(ngModel)]="newClient.AlternateFirstName"
+              name="altFirstName"
+              #altFirstName="ngModel"
+            />
+            <div class="invalid-feedback">First Name is required.</div>
           </div>
-          <div class="col-md mt-2 text-center">
-            <h3 class="m-1">Email Address:</h3>
-            <p>
-              <a href="mailto:peter@concernedforthehungry.org"
-                >peter@concernedforthehungry.org</a
-              >
-            </p>
+          <div class="col-sm form-group">
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': hasSubmitted && altLastName.invalid
+              }"
+              id="pickUpLastNameTextbox"
+              placeholder="Last Name"
+              [required]="'whoPicksup === \'alternate\''"
+              [(ngModel)]="newClient.AlternateLastName"
+              name="altLastName"
+              #altLastName="ngModel"
+            />
+            <div class="invalid-feedback">Last Name is required.</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col form-group">
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': hasSubmitted && altPhone.invalid
+              }"
+              id="pickUpPhoneTextbox"
+              placeholder="Phone"
+              rpattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
+              [(ngModel)]="newClient.AlternatePhone"
+              [required]="'whoPicksup === \'alternate\''"
+              name="altPhone"
+              #altPhone="ngModel"
+            />
+            <div class="invalid-feedback">Valid Phone Number is required.</div>
           </div>
         </div>
       </div>
-    </div>
+      <div class="form-group row" *ngIf="!selectedAgency">
+        <div class="col">
+          <label for="qualifyingId"
+            >Which of the following ID will you be mailing to us with your proof
+            of address?</label
+          >
+          <div class="no-id-warning mb-2" *ngIf="noIdChosen">
+            You must select at least one type of ID.
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.HeapLetter"
+              name="heapLetter"
+            /><label class="form-check-label">HEAP Award Leter</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.CommunityReferral"
+              name="communityReferral"
+            /><label class="form-check-label"
+              >Referral Letter from Community Agency or Spiritual Leader</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.BenefitCard"
+              name="benefitCard"
+            /><label class="form-check-label">Benefit Card</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.SSILetter"
+              name="ssiLetter"
+            /><label class="form-check-label">SSI Award Letter</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.WICCard"
+              name="wicCard"
+            /><label class="form-check-label">WIC Card</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.Unemployment"
+              name="unemployment"
+            /><label class="form-check-label"
+              >Active, current unemployment information</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.SsdLetter"
+              name="ssdletter"
+            /><label class="form-check-label">SSD Award Letter</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="newClient.MuniHousing"
+              name="muniHousing"
+            /><label class="form-check-label"
+              >Proof of Residency in Municipal Housing</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!selectedAgency">
+        <div class="col">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <p class="mt-3">
+                You must email or mail a copy of your Qualifying ID and Proof of
+                Address.
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md mt-2 text-center">
+              <h3 class="m-1">Mailing Address:</h3>
+              <p class="m-0">Concerned For The Hungry</p>
+              <p class="m-0">PO Box 119, Schenectady, NY 12301-0119</p>
+            </div>
+            <div class="col-md mt-2 text-center">
+              <h3 class="m-1">Email Address:</h3>
+              <p>
+                <a href="mailto:peter@concernedforthehungry.org"
+                  >peter@concernedforthehungry.org</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="form-group row mt-3 justify-content-md-center">
-      <div class="col">
-        <button
-          mat-raised-button
-          class="btn btn-primary"
-          type="submit"
-          color="accent"
-        >
-          Submit
-        </button>
+      <div class="form-group row mt-3 justify-content-center">
+        <div class="col text-center">
+          <button
+            mat-raised-button
+            class="btn btn-primary"
+            type="button"
+            color="accent"
+            (click)="verifyInfo(f.form)"
+          >
+            Verify
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="verify">
+      <app-verifyinfo [clientInfo]="newClient"></app-verifyinfo>
+      <div class="form-group row mt-3 justify-content-md-center">
+        <div class="col">
+          <button
+            mat-raised-button
+            class="btn btn-secondary m-2"
+            type="button"
+            (click)="back()"
+          >
+            Back
+          </button>
+          <button mat-raised-button class="btn" type="submit" color="accent">
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   </form>

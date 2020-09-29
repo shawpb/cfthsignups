@@ -1,1 +1,64 @@
-<p>verifyinfo works!</p>
+<div class="continer">
+  <h2>Verify your information:</h2>
+  <div class="row">
+    <div class="col-3">
+      <label>First Name:</label>
+    </div>
+    <div class="col text-left">{{ clientInfo.FirstName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Last Name:</label>
+    </div>
+    <div class="col">{{ clientInfo.LastName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Street Address:</label>
+    </div>
+    <div class="col">{{ clientInfo.StreetAddress }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>City:</label>
+    </div>
+    <div class="col">{{ clientInfo.City }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Zip:</label>
+    </div>
+    <div class="col">{{ clientInfo.Zip }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Email:</label>
+    </div>
+    <div class="col">{{ clientInfo.Email }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Phone:</label>
+    </div>
+    <div class="col">{{ clientInfo.Phone }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Number of People in Household:</label>
+    </div>
+    <div class="col">{{ clientInfo.FamilySize }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Basket Pickuped up by:</label>
+    </div>
+    <div class="col">
+      {{
+        clientInfo.AlternateFirstName !== null &&
+        clientInfo.AlternateFirstName !== undefined
+          ? "Alternate"
+          : "MySelf"
+      }}
+    </div>
+  </div>
+</div>

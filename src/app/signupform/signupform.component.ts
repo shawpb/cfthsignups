@@ -16,6 +16,9 @@ export class SignupformComponent implements OnInit {
 
   public selectedAgency: Agency;
   public pickupSelection: string;
+  public verify = false;
+  public hasSubmitted = false;
+  public noIdChosen = false;
   newClient: Client = new Client();
 
   constructor(
@@ -41,6 +44,32 @@ export class SignupformComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  verifyInfo(form): void {
+    this.hasSubmitted = true;
+    this.noIdChosen = !this.CheckIdSelection();
+
+    if (form.valid && !this.noIdChosen) {
+      this.verify = true;
+    }
+  }
+
+  back(): void {
+    this.verify = false;
+  }
+
+  CheckIdSelection(): boolean {
+    return (
+      this.newClient.BenefitCard ||
+      this.newClient.CommunityReferral ||
+      this.newClient.HeapLetter ||
+      this.newClient.MuniHousing ||
+      this.newClient.SSILetter ||
+      this.newClient.SsdLetter ||
+      this.newClient.Unemployment ||
+      this.newClient.WICCard
+    );
   }
 
   onSubmit(): void {
