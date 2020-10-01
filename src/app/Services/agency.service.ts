@@ -76,7 +76,7 @@ export class AgencyService {
     this.getSelectedAgency.emit(null);
   }
 
-  getEmitter() {
+  getEmitter(): EventEmitter<Agency> {
     return this.getSelectedAgency;
   }
 }

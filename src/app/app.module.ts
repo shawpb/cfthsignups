@@ -21,7 +21,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 import { VerifyinfoComponent } from './verifyinfo/verifyinfo.component';
-import { AgencyformComponent } from './agencyform/agencyform.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './guards/authguard';
 import { AuthService } from './Services/auth.service';
@@ -29,6 +28,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgencyinfoComponent } from './agencyinfo/agencyinfo.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Globals } from './globals';
+import { UnAuthGuardService } from './guards/unauthguard';
+import { ReportsComponent } from './reports/reports.component';
+import { AdminGuardService } from './guards/adminGuard';
 
 @NgModule({
   declarations: [
@@ -38,9 +40,9 @@ import { Globals } from './globals';
     MainComponent,
     SignupformComponent,
     VerifyinfoComponent,
-    AgencyformComponent,
     LoginComponent,
     AgencyinfoComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,8 @@ import { Globals } from './globals';
   ],
   providers: [
     AuthGuardService,
+    UnAuthGuardService,
+    AdminGuardService,
     AuthService,
     Globals,
     {

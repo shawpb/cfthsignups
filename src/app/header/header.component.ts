@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Agency } from '../Models/agency';
-import { AgencyService } from '../Services/agency.service';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,36 +8,18 @@ import { AgencyService } from '../Services/agency.service';
   styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit {
-  public selectedAgency: Agency;
-
-  constructor(public agencyService: AgencyService, public router: Router) {
-    if (this.selectedAgency === null || this.selectedAgency === undefined) {
-      this.selectedAgency = this.agencyService.GetCurrentAgency();
-    }
-  }
+  showLogout = false;
+  constructor(public router: Router, public authService: AuthService) {}
 
   ngOnInit(): void {
-    this.agencyService.getEmitter().subscribe((a: Agency) => {
-      this.selectedAgency = a;
-    });
+    this.getUser();
+  }
+
+  async getUser(): Promise<any> {
+    // this.showLogout = await this.authService.isAuthenticated();
   }
 
   logout(): void {
-    this.agencyService.Logout();
-  }
-
-  agencyClick(): void {
-    if (this.selectedAgency) {
-      this.router.navigate(['/signup']);
-    } else {
-      this.router.navigate(['/agency']);
-    }
-  }
-
-  hasAgency(): boolean {
-    if (this.selectedAgency !== null && this.selectedAgency !== undefined) {
-      return true;
-    }
-    return false;
+    this.authService.SignOut();
   }
 }

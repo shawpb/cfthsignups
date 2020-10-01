@@ -1,26 +1,43 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <form (ngSubmit)="onSubmit(passwordValue.value)">
-        <mat-form-field appearance="standard">
-          <input
-            matInput
-            placeholder="Password"
-            [type]="hide ? 'password' : 'text'"
-            [formControl]="passwordValue"
-            id="passwordValue"
-            required
-          />
-          <mat-icon matSuffix (click)="hide = !hide">{{
-            hide ? "visibility_off" : "visibility"
-          }}</mat-icon>
-          <mat-error>Invalid Password.</mat-error>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" class="m-2" type="submit">
-          Login
-        </button>
-      </form>
-    </div>
-  </div>
+  <form [formGroup]="signinForm">
+    <h2>Sign in to your account</h2>
+    <mat-form-field class="m-2">
+      <input
+        matInput
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        required
+      />
+      <mat-hint *ngIf="!emailInput.value">Enter your email address</mat-hint>
+      <mat-error *ngIf="!emailInput.valid">
+        {{ getEmailInputError() }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="m-2">
+      <input
+        matInput
+        placeholder="Password"
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+        required
+      />
+      <mat-icon matSuffix (click)="hide = !hide">{{
+        hide ? "visibility_off" : "visibility"
+      }}</mat-icon>
+      <mat-hint *ngIf="!passwordInput.value">Enter your password</mat-hint>
+      <mat-error *ngIf="!passwordInput.valid">
+        {{ getPasswordInputError() }}
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="signIn()"
+      [disabled]="!signinForm.valid"
+    >
+      Sign In
+    </button>
+  </form>
 </div>

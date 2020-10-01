@@ -25,14 +25,14 @@
         >
       </li>
       <li class="nav-item active agencyLink">
-        <a class="nav-link agencyLink" (click)="agencyClick()">Agencies</a>
+        <a class="nav-link agencyLink" routerLink="login">Agencies</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="http://www.concernedforthehungry.org"
           >Contact</a
         >
       </li>
-      <li class="nav-item" *ngIf="hasAgency()">
+      <li class="nav-item">
         <a class="nav-link" href="#" (click)="logout()">Log out</a>
       </li>
     </ul>

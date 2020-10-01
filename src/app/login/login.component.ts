@@ -1,30 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
-import { AgencyService } from '../Services/agency.service';
+import { CognitoUser } from '@aws-amplify/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements OnInit {
-  passwordValue = new FormControl('', [Validators.required, Validators.min(3)]);
-  constructor(
-    public router: Router,
-    public authService: AuthService,
-    public agencyService: AgencyService
-  ) {}
+export class LoginComponent {
+  // passwordValue = new FormControl('', [Validators.required, Validators.min(3)]);
+  // usernameValue = new FormControl('', Validators.required);
+  // hide = true;
+  // error = false;
+  // errorMesg = '';
+
+  // constructor(public router: Router, public authService: AuthService) {}
+
+  // ngOnInit(): void {}
+
+  // onSubmit(passwordValue: string, usernameValue: string): void {
+  //   this.authService
+  //     .signIn(usernameValue, passwordValue)
+  //     .then(() => this.router.navigate(['signup']))
+  //     .catch((error) => {
+  //       this.error = true;
+  //       this.errorMesg = JSON.stringify(error.message);
+  //     });
+  // }
+  signinForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.min(6)]),
+  });
+
   hide = true;
+  badLogin = false;
 
-  ngOnInit(): void {}
+  get emailInput(): AbstractControl {
+    return this.signinForm.get('email');
+  }
+  get passwordInput(): AbstractControl {
+    return this.signinForm.get('password');
+  }
 
-  onSubmit(passwordValue: string): void {
-    if (this.authService.ValidatePassword(passwordValue)) {
-      const aId = this.agencyService.GetAgencyByPassword(passwordValue);
-      this.agencyService.SetCurrentAgency(aId);
-      this.router.navigate(['signup']);
+  constructor(public auth: AuthService, private router: Router) {}
+
+  getEmailInputError(): string {
+    if (this.emailInput.hasError('email')) {
+      return 'Please enter a valid email address.';
     }
+    if (this.emailInput.hasError('required')) {
+      return 'An Email is required.';
+    }
+  }
+
+  getPasswordInputError(): string {
+    if (this.badLogin) {
+      return 'Login credentials were invalid.';
+    } else if (this.passwordInput.hasError('required')) {
+      return 'A password is required.';
+    }
+  }
+
+  signIn(): void {
+    this.auth
+      .signIn(this.emailInput.value, this.passwordInput.value)
+      .then((user: CognitoUser | any) => {
+        this.router.navigate(['signup']);
+      })
+      .catch((error: any) => {
+        switch (error.code) {
+          case 'NotAuthorizedException':
+            this.badLogin = true;
+            this.signinForm.get('password').setErrors({ serverError: '' });
+            break;
+        }
+      });
   }
 }

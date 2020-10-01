@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { Router } from '@angular/router';
-import { Agency } from '../Models/agency';
 import { Client } from '../Models/Client';
-import { AgencyService } from '../Services/agency.service';
 import { ClientService } from '../Services/client.service';
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-signupform',
@@ -14,28 +14,31 @@ import { ClientService } from '../Services/client.service';
 export class SignupformComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
-  public selectedAgency: Agency;
   public pickupSelection: string;
   public verify = false;
   public hasSubmitted = false;
   public noIdChosen = false;
+  public authUser: CognitoUser;
   newClient: Client = new Client();
 
   constructor(
-    public agencyService: AgencyService,
     public clientService: ClientService,
-    public router: Router
+    public router: Router,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.selectedAgency = this.agencyService.GetCurrentAgency();
     this.pickupSelection = 'self';
+    this.getUser();
+  }
+
+  async getUser(): Promise<any> {
+    this.authUser = await this.authService.getUser().catch((error) => {
+      console.log(JSON.stringify(error));
+    });
   }
 
   SaveClient(): void {
-    if (this.selectedAgency !== null && this.selectedAgency !== undefined) {
-      this.newClient.Agency = this.selectedAgency.name;
-    }
     this.clientService.AddClient(this.newClient);
   }
 

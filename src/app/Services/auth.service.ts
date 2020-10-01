@@ -1,33 +1,70 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Auth } from 'aws-amplify';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 
 @Injectable()
 export class AuthService {
+  @Output() userAuthStateChanged: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
+
   constructor(public router: Router) {}
 
-  public isAuthenticated(): boolean {
-    // const token = localStorage.getItem('token');
-    // Check whether the token is expired and return
-    // true or false
-    // return !this.jwtHelper.isTokenExpired(token);
-
-    const adminValue = sessionStorage.getItem('admin');
-
-    if (
-      adminValue !== undefined &&
-      adminValue !== null &&
-      this.ValidatePassword(adminValue)
-    ) {
-      return true;
-    }
-
-    return false;
+  signIn(username: string, password: string): Promise<CognitoUser | any> {
+    return new Promise((resolve, reject) => {
+      Auth.signIn(username, password)
+        .then((user: CognitoUser | any) => {
+          this.userAuthStateChanged.emit(true);
+          resolve(user);
+        })
+        .catch((error: any) => reject(error));
+    });
   }
 
-  public ValidatePassword(passwordValue: string): boolean {
-    if (passwordValue === 'supersecret') {
-      return true;
-    }
-    return false;
+  public SignOut(): void {
+    Auth.signOut()
+      .then(() => this.userAuthStateChanged.emit(false))
+      .catch((err) => console.log(err));
+  }
+
+  async isAuthenticated(): Promise<boolean> {
+    return await Auth.currentAuthenticatedUser()
+      .then(() => true)
+      .catch(() => false);
+  }
+
+  async isAdmin(): Promise<boolean> {
+    return await Auth.currentAuthenticatedUser()
+      .then((user) => {
+        let isAdmin = false;
+        const groups =
+          user.signInUserSession.accessToken.payload['cognito:groups'];
+        groups.forEach((element) => {
+          if (element === 'Admins') {
+            isAdmin = true;
+          }
+        });
+
+        return isAdmin;
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+        return false;
+      });
+  }
+
+  async getUser(): Promise<CognitoUser | any> {
+    return new Promise((resolve, reject) => {
+      Auth.currentAuthenticatedUser()
+        .then((user: CognitoUser | any) => {
+          resolve(user);
+        })
+        .catch((error: any) => reject(error));
+    });
+  }
+
+  getEmmiter(): EventEmitter<boolean> {
+    return this.userAuthStateChanged;
   }
 }
