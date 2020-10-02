@@ -6,6 +6,7 @@ public class Client
     public string FirstName;
     public string LastName;
     public string StreetAddress;
+    public string AptNum;
     public string City;
     public string Zip;
     public string Email;
@@ -21,6 +22,7 @@ public class Client
     public bool MuniHousing;
     public bool SsdLetter;
 
+    public string WhoDelivers;
     public string AlternateFirstName;
     public string AlternateLastName;
     public string AlternatePhone;
