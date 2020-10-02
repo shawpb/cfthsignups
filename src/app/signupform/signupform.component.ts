@@ -38,6 +38,7 @@ export class SignupformComponent implements OnInit {
       .getUser()
       .then((user) => {
         this.clientRefVerbiage = 'The Client';
+        this.newClient.Agency = user.Agency;
         return user;
       })
       .catch((error) => {
@@ -55,6 +56,7 @@ export class SignupformComponent implements OnInit {
   }
 
   showAlternate(): boolean {
+    this.newClient.WhoDelivers = this.pickupSelection;
     if (
       this.pickupSelection === 'alternate' ||
       this.pickupSelection === 'agency'
@@ -65,6 +67,7 @@ export class SignupformComponent implements OnInit {
   }
 
   verifyInfo(form): void {
+    this.newClient.WhoDelivers = this.pickupSelection;
     this.hasSubmitted = true;
     this.noIdChosen = !this.CheckIdSelection();
 
@@ -94,6 +97,7 @@ export class SignupformComponent implements OnInit {
     if (this.authUser) {
       this.newClient.Agency = this.authUser.Agency;
     }
+    this.newClient.WhoDelivers = this.pickupSelection;
     this.SaveClient();
     alert(
       'Successfully saved: ' +

@@ -20,6 +20,12 @@
   </div>
   <div class="row">
     <div class="col-3">
+      <label>Apt Number:</label>
+    </div>
+    <div class="col">{{ clientInfo.AptNum }}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">
       <label>City:</label>
     </div>
     <div class="col">{{ clientInfo.City }}</div>
@@ -52,13 +58,37 @@
     <div class="col-3">
       <label>Basket Pickuped up by:</label>
     </div>
+    <div class="col" *ngIf="clientInfo.WhoDelivers === 'alternate'">
+      {{ clientInfo.AlternateFirstName }} {{ clientInfo.AlternateLastName }}
+    </div>
+    <div class="col" *ngIf="clientInfo.WhoDelivers === 'agency'">
+      Agency: {{ clientInfo.Agency }}
+    </div>
+    <div class="col" *ngIf="clientInfo.WhoDelivers === 'self'">
+      The Client picks up
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Selected Qualifying IDs:</label>
+    </div>
     <div class="col">
-      {{
-        clientInfo.AlternateFirstName !== null &&
-        clientInfo.AlternateFirstName !== undefined
-          ? "Alternate"
-          : "MySelf"
-      }}
+      <ul>
+        <li *ngIf="clientInfo.HeapLetter">Heap Award Letter</li>
+        <li *ngIf="clientInfo.CommunityReferral">
+          Referral Letter from Community Agency or Spiritual Leader
+        </li>
+        <li *ngIf="clientInfo.BenefitCard">Benefit Card</li>
+        <li *ngIf="clientInfo.SSILetter">SSI Award Letter</li>
+        <li *ngIf="clientInfo.WICCard">WIC Card</li>
+        <li *ngIf="clientInfo.Unemployment">
+          Active, current unemployment information
+        </li>
+        <li *ngIf="clientInfo.MuniHousing">SSD Award Letter</li>
+        <li *ngIf="clientInfo.SsdLetter">
+          Proof of Residency in Municipal Housing
+        </li>
+      </ul>
     </div>
   </div>
 </div>

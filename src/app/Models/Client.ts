@@ -17,6 +17,7 @@ export class Client {
   public Unemployment: boolean;
   public MuniHousing: boolean;
   public SsdLetter: boolean;
+  public WhoDelivers: string;
   public AlternateFirstName: string;
   public AlternateLastName: string;
   public AlternatePhone: string;
