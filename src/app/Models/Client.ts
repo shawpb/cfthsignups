@@ -3,6 +3,7 @@ export class Client {
   public FirstName: string;
   public LastName: string;
   public StreetAddress: string;
+  public AptNum: string;
   public City: string;
   public Zip: string;
   public Email: string;
@@ -20,4 +21,6 @@ export class Client {
   public AlternateLastName: string;
   public AlternatePhone: string;
   public Agency: string;
+  public AgencyRepFirstName: string;
+  public AgencyRepLastName: string;
 }

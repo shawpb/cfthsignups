@@ -1,5 +1,5 @@
 <div class="container">
-  <app-agencyinfo></app-agencyinfo>
+  <app-agencyinfo *ngIf="authUser"></app-agencyinfo>
   <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="mainForm">
     <div class="row">
       <div class="col">
@@ -37,19 +37,34 @@
           <div class="invalid-feedback">Last Name is required.</div>
         </div>
       </div>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': hasSubmitted && streetAddress.invalid }"
-          id="streetAddressTextbox"
-          placeholder="Street Address"
-          [(ngModel)]="newClient.StreetAddress"
-          required
-          name="streetAddress"
-          #streetAddress="ngModel"
-        />
-        <div class="invalid-feedback">Street Address is required.</div>
+      <div class="row">
+        <div class="col-sm-10 form-group">
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': hasSubmitted && streetAddress.invalid }"
+            id="streetAddressTextbox"
+            placeholder="Street Address"
+            [(ngModel)]="newClient.StreetAddress"
+            required
+            name="streetAddress"
+            #streetAddress="ngModel"
+          />
+          <div class="invalid-feedback">Street Address is required.</div>
+        </div>
+        <div class="col-sm-2 form-group">
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': hasSubmitted && aptNum.invalid }"
+            id="aptNumtextBox"
+            placeholder="Apt Num"
+            [(ngModel)]="newClient.AptNum"
+            name="aptNum"
+            #aptNum="ngModel"
+          />
+          <div class="invalid-feedback">Street Address is required.</div>
+        </div>
       </div>
       <div class="row">
         <div class="col-sm form-group">
@@ -142,7 +157,7 @@
               name="whoPicksup"
               value="self"
               [(ngModel)]="pickupSelection"
-            /><label class="form-check-label">Myself</label>
+            /><label class="form-check-label">{{ clientRefVerbiage }}</label>
           </div>
           <div class="form-check">
             <input
@@ -151,7 +166,21 @@
               name="whoPicksup"
               value="alternate"
               [(ngModel)]="pickupSelection"
-            /><label class="form-check-label">Someone Else</label>
+            /><label class="form-check-label"
+              >Someone Else on behalf of {{ clientRefVerbiage }}</label
+            >
+          </div>
+          <div class="form-check" *ngIf="authUser">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="whoPicksup"
+              value="agency"
+              (change)="setAgencyPickUpInfo()"
+              [(ngModel)]="pickupSelection"
+            /><label class="form-check-label"
+              >Agency on behalf of {{ clientRefVerbiage }}</label
+            >
           </div>
         </div>
       </div>
@@ -171,7 +200,9 @@
               [ngClass]="{
                 'is-invalid': hasSubmitted && altFirstName.invalid
               }"
-              [required]="'whoPicksup === \'alternate\''"
+              [required]="
+                'whoPicksup === \'alternate\' || whoPicksup === \'agency\''
+              "
               [(ngModel)]="newClient.AlternateFirstName"
               name="altFirstName"
               #altFirstName="ngModel"
@@ -187,7 +218,9 @@
               }"
               id="pickUpLastNameTextbox"
               placeholder="Last Name"
-              [required]="'whoPicksup === \'alternate\''"
+              [required]="
+                'whoPicksup === \'alternate\' || whoPicksup === \'agency\''
+              "
               [(ngModel)]="newClient.AlternateLastName"
               name="altLastName"
               #altLastName="ngModel"
@@ -207,7 +240,9 @@
               placeholder="Phone"
               rpattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
               [(ngModel)]="newClient.AlternatePhone"
-              [required]="'whoPicksup === \'alternate\''"
+              [required]="
+                'whoPicksup === \'alternate\' || whoPicksup === \'agency\''
+              "
               name="altPhone"
               #altPhone="ngModel"
             />
@@ -218,8 +253,8 @@
       <div class="form-group row" *ngIf="!selectedAgency">
         <div class="col">
           <label for="qualifyingId"
-            >Which of the following ID will you be mailing to us with your proof
-            of address?</label
+            >Which of the following ID will you be mailing copies of to us with
+            a copy of your proof of address?</label
           >
           <div class="no-id-warning mb-2" *ngIf="noIdChosen">
             You must select at least one type of ID.
@@ -300,9 +335,13 @@
         <div class="col">
           <div class="row justify-content-center">
             <div class="col-auto">
-              <p class="mt-3">
-                You must email or mail a copy of your Qualifying ID and Proof of
-                Address.
+              <p class="mt-3 mb-1 text-center">
+                To complete sign up, you must email or mail a copy of at least
+                half of your Qualifying IDs as well as Proof of Address.
+              </p>
+              <p class="mt-0 text-center">
+                Please include the first and last name of the person being
+                signed up.
               </p>
             </div>
           </div>

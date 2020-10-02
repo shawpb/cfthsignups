@@ -3,8 +3,8 @@ import { MatAccordion } from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { Client } from '../Models/Client';
 import { ClientService } from '../Services/client.service';
-import { CognitoUser } from 'amazon-cognito-identity-js';
 import { AuthService } from '../Services/auth.service';
+import { User } from '../Models/User';
 
 @Component({
   selector: 'app-signupform',
@@ -18,7 +18,8 @@ export class SignupformComponent implements OnInit {
   public verify = false;
   public hasSubmitted = false;
   public noIdChosen = false;
-  public authUser: CognitoUser;
+  public authUser: User;
+  public clientRefVerbiage = 'Myself';
   newClient: Client = new Client();
 
   constructor(
@@ -33,9 +34,20 @@ export class SignupformComponent implements OnInit {
   }
 
   async getUser(): Promise<any> {
-    this.authUser = await this.authService.getUser().catch((error) => {
-      console.log(JSON.stringify(error));
-    });
+    this.authUser = await this.authService
+      .getUser()
+      .then((user) => {
+        this.clientRefVerbiage = 'The Client';
+        return user;
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+      });
+  }
+
+  setAgencyPickUpInfo(): void {
+    this.newClient.AlternateFirstName = this.authUser.FirstName;
+    this.newClient.AlternateLastName = this.authUser.LastName;
   }
 
   SaveClient(): void {
@@ -43,7 +55,10 @@ export class SignupformComponent implements OnInit {
   }
 
   showAlternate(): boolean {
-    if (this.pickupSelection === 'alternate') {
+    if (
+      this.pickupSelection === 'alternate' ||
+      this.pickupSelection === 'agency'
+    ) {
       return true;
     }
     return false;
@@ -76,6 +91,9 @@ export class SignupformComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.authUser) {
+      this.newClient.Agency = this.authUser.Agency;
+    }
     this.SaveClient();
     alert(
       'Successfully saved: ' +

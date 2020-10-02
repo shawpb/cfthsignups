@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { CognitoUser } from 'amazon-cognito-identity-js';
+import { User } from '../Models/User';
 
 @Injectable()
 export class AuthService {
@@ -54,11 +55,20 @@ export class AuthService {
       });
   }
 
-  async getUser(): Promise<CognitoUser | any> {
+  async getUser(): Promise<User | any> {
+    let userInfo: any;
+    let authUser: CognitoUser;
+
     return new Promise((resolve, reject) => {
       Auth.currentAuthenticatedUser()
         .then((user: CognitoUser | any) => {
-          resolve(user);
+          authUser = user;
+        })
+        .then(() => {
+          Auth.currentUserInfo().then((info: any) => {
+            userInfo = info;
+            resolve(new User(authUser, userInfo));
+          });
         })
         .catch((error: any) => reject(error));
     });

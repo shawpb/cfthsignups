@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CognitoUser } from 'amazon-cognito-identity-js';
-import { Auth } from 'aws-amplify';
+import { User } from '../Models/User';
 import { AuthService } from '../Services/auth.service';
 
 @Component({
@@ -9,8 +8,7 @@ import { AuthService } from '../Services/auth.service';
   styleUrls: ['./agencyinfo.component.sass'],
 })
 export class AgencyinfoComponent implements OnInit {
-  public userInfo: CognitoUser;
-  public profile: any = {};
+  public currentUser: User;
   public userName: string;
   public firstName: string;
   public lastName: string;
@@ -23,15 +21,10 @@ export class AgencyinfoComponent implements OnInit {
   }
 
   async GetUserInfo(): Promise<any> {
-    this.profile = await Auth.currentUserInfo();
-    this.userInfo = await Auth.currentAuthenticatedUser();
-    //  if (this.profile.attributes['profile']) {
-    //    this.avatar = this.profile.attributes['profile'];
-    //    this.currentAvatarUrl = (await Storage.vault.get(this.avatar)) as string;
-    //  }
-    this.userName = this.userInfo.getUsername();
-    this.firstName = this.profile.attributes['given_name'];
-    this.lastName = this.profile.attributes['family_name'];
-    this.Agency = this.profile.attributes['custom:Agency'];
+    this.currentUser = await this.authService.getUser();
+    this.userName = this.currentUser.UserName;
+    this.firstName = this.currentUser.FirstName;
+    this.lastName = this.currentUser.LastName;
+    this.Agency = this.currentUser.Agency;
   }
 }
