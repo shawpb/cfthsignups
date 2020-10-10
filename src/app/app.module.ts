@@ -31,6 +31,7 @@ import { Globals } from './globals';
 import { UnAuthGuardService } from './guards/unauthguard';
 import { ReportsComponent } from './reports/reports.component';
 import { AdminGuardService } from './guards/adminGuard';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AdminGuardService } from './guards/adminGuard';
     LoginComponent,
     AgencyinfoComponent,
     ReportsComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

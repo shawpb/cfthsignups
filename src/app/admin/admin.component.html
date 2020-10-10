@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <select formControlName="users">
+        <option *ngFor="let client of clients" [ngValue]="client">
+          {{ client.FirstName }} {{ client.LastName }}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>

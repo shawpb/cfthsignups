@@ -28,5 +28,7 @@ public class Client
     public string AlternatePhone;
 
     public string Agency;
+    public string AgencyRepFirstName;
+    public string AgencyRepLastName;
     public DateTime CreatedTimestamp { get; set; }
 }

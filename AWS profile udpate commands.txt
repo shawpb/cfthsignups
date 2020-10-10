@@ -1,0 +1,3 @@
+aws cognito-idp admin-set-user-password --user-pool-id us-east-1_yWGy5Hak0 --username 6feafa7b-320f-4b00-bc06-c355f3f85970 --password example! --permanent
+
+aws cognito-idp admin-update-user-attributes --user-pool-id us-east-1_yWGy5Hak0 --username 6feafa7b-320f-4b00-bc06-c355f3f85970 --user-attributes Name=custom:Agency,Value='Example Agency'

@@ -19,6 +19,7 @@ export class SignupformComponent implements OnInit {
   public hasSubmitted = false;
   public noIdChosen = false;
   public authUser: User;
+  public isAdmin = false;
   public clientRefVerbiage = 'Myself';
   newClient: Client = new Client();
 
@@ -36,9 +37,12 @@ export class SignupformComponent implements OnInit {
   async getUser(): Promise<any> {
     this.authUser = await this.authService
       .getUser()
-      .then((user) => {
+      .then(async (user) => {
         this.clientRefVerbiage = 'The Client';
         this.newClient.Agency = user.Agency;
+        await this.authService.isUserAdmin(user).then((isAdminStatus) => {
+          this.isAdmin = isAdminStatus;
+        });
         return user;
       })
       .catch((error) => {
@@ -69,9 +73,9 @@ export class SignupformComponent implements OnInit {
   verifyInfo(form): void {
     this.newClient.WhoDelivers = this.pickupSelection;
     this.hasSubmitted = true;
-    this.noIdChosen = !this.CheckIdSelection();
+    this.noIdChosen = !this.IsIdSelected();
 
-    if (form.valid && !this.noIdChosen) {
+    if (form.valid && (this.authUser || !this.noIdChosen)) {
       this.verify = true;
     }
   }
@@ -80,7 +84,7 @@ export class SignupformComponent implements OnInit {
     this.verify = false;
   }
 
-  CheckIdSelection(): boolean {
+  IsIdSelected(): boolean {
     return (
       this.newClient.BenefitCard ||
       this.newClient.CommunityReferral ||
@@ -96,6 +100,8 @@ export class SignupformComponent implements OnInit {
   onSubmit(): void {
     if (this.authUser) {
       this.newClient.Agency = this.authUser.Agency;
+      this.newClient.AgencyRepFirstName = this.authUser.FirstName;
+      this.newClient.AgencyRepLastName = this.authUser.LastName;
     }
     this.newClient.WhoDelivers = this.pickupSelection;
     this.SaveClient();

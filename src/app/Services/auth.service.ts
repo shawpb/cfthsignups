@@ -38,20 +38,29 @@ export class AuthService {
   async isAdmin(): Promise<boolean> {
     return await Auth.currentAuthenticatedUser()
       .then((user) => {
-        let isAdmin = false;
-        const groups =
-          user.signInUserSession.accessToken.payload['cognito:groups'];
-        groups.forEach((element) => {
-          if (element === 'Admins') {
-            isAdmin = true;
-          }
-        });
-
-        return isAdmin;
+        return this.isUserAdmin(user);
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
         return false;
+      });
+  }
+
+  async isUserAdmin(user: any): Promise<boolean> {
+    let isAdmin = false;
+    return await Auth.currentSession()
+      .then((data) => {
+        const groups = data.getAccessToken().payload['cognito:groups'];
+        groups.forEach((element: string) => {
+          if (element === 'Admins') {
+            isAdmin = true;
+          }
+        });
+        return isAdmin;
+      })
+      .catch((err) => {
+        console.log(err);
+        return isAdmin;
       });
   }
 

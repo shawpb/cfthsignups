@@ -6,6 +6,7 @@ import { UnAuthGuardService } from './guards/unauthguard';
 import { LoginComponent } from './login/login.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AdminGuardService } from './guards/adminGuard';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -21,6 +22,11 @@ const routes: Routes = [
   {
     path: 'reports',
     component: ReportsComponent,
+    canActivate: [AdminGuardService],
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
     canActivate: [AdminGuardService],
   },
   { path: '**', component: MainComponent },
