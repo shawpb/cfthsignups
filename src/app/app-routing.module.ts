@@ -9,15 +9,15 @@ import { AdminGuardService } from './guards/adminGuard';
 import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', component: LoginComponent, canActivate: [UnAuthGuardService] },
   {
     path: 'signup',
     component: SignupformComponent,
+    canActivate: [AdminGuardService],
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [UnAuthGuardService],
   },
   {
     path: 'reports',
@@ -29,7 +29,7 @@ const routes: Routes = [
     component: AdminComponent,
     canActivate: [AdminGuardService],
   },
-  { path: '**', component: MainComponent },
+  { path: '**', component: LoginComponent },
 ];
 
 @NgModule({

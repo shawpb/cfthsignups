@@ -72,7 +72,7 @@ export class LoginComponent {
     this.auth
       .signIn(this.emailInput.value, this.passwordInput.value)
       .then((user: CognitoUser | any) => {
-        this.router.navigate(['signup']);
+        this.router.navigate(['/signup']);
       })
       .catch((error: any) => {
         switch (error.code) {

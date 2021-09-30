@@ -13,11 +13,10 @@ export class AdminGuardService implements CanActivate {
         if (isAdmin) {
           return true;
         }
-        this.router.navigate(['/']);
-        return false;
+        throw new Error("not admin");
       })
       .catch(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
         return false;
       });
   }
