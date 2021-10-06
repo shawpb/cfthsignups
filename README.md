@@ -22,6 +22,9 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Deployent Information
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+I hope you read this and remember that there is a scrip that you can use to deploy this application out to AWS and it will handle the front end and all the lambda stuff for you
+
+## Other Information
+This application is using the AWS Amplify framework to handle the back end user authentication via Cognito. Other then that, THe front end is an SPA angular application and the lambdas are written in C# with an API Gateway in front of them.
