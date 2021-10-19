@@ -10,7 +10,7 @@ export class UnAuthGuardService implements CanActivate {
   canActivate() {
     return Auth.currentAuthenticatedUser()
       .then(() => {
-        this.router.navigate(['signup']);
+        this.router.navigate(['/signup']);
         return false;
       })
       .catch(() => {

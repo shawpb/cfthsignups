@@ -1,5 +1,6 @@
 export class Client {
   public Id: string;
+  public ClientId: string;
   public FirstName: string;
   public LastName: string;
   public StreetAddress: string;

@@ -3,6 +3,7 @@ using System;
 public class Client
 {
     public string Id;
+    public string ClientId;
     public string FirstName;
     public string LastName;
     public string StreetAddress;

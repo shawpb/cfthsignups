@@ -57,10 +57,7 @@
         "Description": "Function to get a list of Clients",
         "MemorySize": 256,
         "Timeout": 30,
-        "Role": null,
-        "Policies": [
-          "AWSLambdaFullAccess"
-        ],
+        "Role": null,       
         "Environment": {
           "Variables": {
             "ClientTable": {
@@ -97,9 +94,6 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Role": null,
-        "Policies": [
-          "AWSLambdaFullAccess"
-        ],
         "Environment": {
           "Variables": {
             "ClientTable": {
@@ -136,9 +130,6 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Role": null,
-        "Policies": [
-          "AWSLambdaFullAccess"
-        ],
         "Environment": {
           "Variables": {
             "ClientTable": {
@@ -175,9 +166,6 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Role": null,
-        "Policies": [
-          "AWSLambdaFullAccess"
-        ],
         "Environment": {
           "Variables": {
             "ClientTable": {

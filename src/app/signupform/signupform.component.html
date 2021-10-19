@@ -1,11 +1,27 @@
 <div class="container">
- <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="mainForm">
+  <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="mainForm">
     <div class="row">
       <div class="col">
         <H2>Client Signup:</H2>
       </div>
     </div>
     <div *ngIf="!verify">
+      <div class="row">
+        <div class="col-sm form-group">
+          <input
+            type="number"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid': hasSubmitted && clientId.invalid }"
+            id="clientIDTextbox"
+            placeholder="Client ID"
+            [(ngModel)]="newClient.ClientId"
+            name="clientId"
+            #clientId="ngModel"
+          />
+          <div class="invalid-feedback">First Name is required.</div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm form-group">
           <input
@@ -19,7 +35,7 @@
             name="firstName"
             #firstName="ngModel"
           />
-          <div class="invalid-feedback">First Name is required.</div>
+          <div class="invalid-feedback">Client ID is required.</div>
         </div>
         <div class="col-sm form-group">
           <input
@@ -145,6 +161,23 @@
           </div>
         </div>
       </div>
+
+      <DIV class="row mb-3">
+        <div class="col">
+          <select
+            class="form-control"
+            name="agencySelect"
+            [(ngModel)]="selectedAgency"
+          >
+            <option selected>Select Agency</option>
+            <option *ngFor="let agency of agencyList" [ngValue]="agency.id">
+              {{ agency.name }}, {{ agency.contactFirstName }}
+              {{ agency.contactLastName }}
+            </option>
+          </select>
+        </div>
+      </DIV>
+
       <div class="row mb-3">
         <div class="col-auto"><h3>Who will pickup the basket?</h3></div>
         <div class="col">

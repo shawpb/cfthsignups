@@ -2,8 +2,8 @@ export class Agency {
   constructor(
     agencyId: string,
     agencyName: string,
-    cLastName: string,
     cFirstName: string,
+    cLastName: string,
     cPhone: string
   ) {
     this.id = agencyId;
