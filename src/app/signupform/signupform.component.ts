@@ -65,6 +65,12 @@ export class SignupformComponent implements OnInit {
     this.newClient.AlternatePhone = userSelectedAgency.contactPhone;
   }
 
+  updateCity(): void {
+    if (this.newClient.City.toUpperCase() === 'SCH') {
+      this.newClient.City = 'Schenectady';
+    }
+  }
+
   SaveClient(): void {
     this.clientService.AddClient(this.newClient);
   }

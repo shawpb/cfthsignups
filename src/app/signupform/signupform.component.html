@@ -90,6 +90,7 @@
             id="cityTextbox"
             placeholder="City"
             [(ngModel)]="newClient.City"
+            (blur)="updateCity()"
             name="city"
             required
             #city="ngModel"
