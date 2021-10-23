@@ -65,7 +65,8 @@
       <label>Basket Pickuped up by:</label>
     </div>
     <div class="col" *ngIf="clientInfo.WhoDelivers === 'alternate'">
-      {{ clientInfo.AlternateFirstName }} {{ clientInfo.AlternateLastName }}
+      {{ clientInfo.AlternateFirstName }} {{ clientInfo.AlternateLastName }},
+      Phone: {{ clientInfo.AlternatePhone }}
     </div>
     <div class="col" *ngIf="clientInfo.WhoDelivers === 'agency'">
       Agency: {{ clientInfo.Agency }}
