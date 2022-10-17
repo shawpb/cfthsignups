@@ -30,6 +30,7 @@ speed-measure-plugin*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.vs/*
 
 # misc
 /.sass-cache
@@ -64,3 +65,5 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+lambdas/signupapi/src/signupapi/.vs/signupapi/v16/.suo
+lambdas/signupapi/src/signupapi/.vs/signupapi/v16/.suo
