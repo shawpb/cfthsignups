@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   AbstractControl,
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
@@ -34,9 +34,9 @@ export class LoginComponent {
   //       this.errorMesg = JSON.stringify(error.message);
   //     });
   // }
-  signinForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.min(6)]),
+  signinForm: UntypedFormGroup = new UntypedFormGroup({
+    email: new UntypedFormControl('', [Validators.email, Validators.required]),
+    password: new UntypedFormControl('', [Validators.required, Validators.min(6)]),
   });
 
   hide = true;
