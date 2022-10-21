@@ -25,4 +25,6 @@ export class Client {
   public Agency: string;
   public AgencyRepFirstName: string;
   public AgencyRepLastName: string;
+  public isVeteran: boolean;
+  public isDriving: boolean;
 }
