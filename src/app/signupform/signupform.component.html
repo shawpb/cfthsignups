@@ -162,12 +162,42 @@
           </div>
         </div>
       </div>
-      <div class="form-group row ">
+      <div class="form-group row">
         <div class="col-sm">
-          <input type="checkbox" id="veteranCheckBox" name="veteran" value="true"[(ngModel)]="newClient.isVeteran"><label for="veteranCheckBox" #veteran="ngModel" [(ngModel)]="newClient.isVeteran"> Veteran?</label><br>
+          <input
+            type="checkbox"
+            class="checkboxText"
+            id="veteranCheckBox"
+            name="veteran"
+            value="true"
+            [(ngModel)]="newClient.isVeteran"
+          /><label
+            for="veteranCheckBox"
+            class="checkboxText"
+            #veteran="ngModel"
+            [(ngModel)]="newClient.isVeteran"
+          >
+            Veteran?</label
+          ><br />
         </div>
+      </div>
+      <div class="form-group row">
         <div class="col-sm">
-          <input type="checkbox" id="drivingCheckBox" name="driving" value="true"[(ngModel)]="newClient.isDriving"><label for="drivingCheckBox" #veteran="ngModel" [(ngModel)]="newClient.isDriving"> Driving/Riding?</label><br>
+          <input
+            type="checkbox"
+            class="checkboxText"
+            id="drivingCheckBox"
+            name="driving"
+            value="true"
+            [(ngModel)]="newClient.isDriving"
+          /><label
+            for="drivingCheckBox"
+            class="checkboxText"
+            #veteran="ngModel"
+            [(ngModel)]="newClient.isDriving"
+          >
+            Driving/Riding?</label
+          ><br />
         </div>
       </div>
 
