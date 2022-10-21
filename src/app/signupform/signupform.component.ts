@@ -5,8 +5,7 @@ import { Client } from '../Models/Client';
 import { ClientService } from '../Services/client.service';
 import { AuthService } from '../Services/auth.service';
 import { User } from '../Models/User';
-import { Agency } from '../Models/agency';
-import * as agencies from './agencies.json';
+import agencies from './agencies.json';
 
 @Component({
   selector: 'app-signupform',
@@ -24,8 +23,8 @@ export class SignupformComponent implements OnInit {
   public isAdmin = false;
   public clientRefVerbiage = 'Myself';
   newClient: Client = new Client();
-  selectedAgency: string = '0';
-  agencyList: Agency[];
+  selectedAgency: number = 0;
+  agencyList: any[] = agencies;
 
   constructor(
     public clientService: ClientService,
@@ -36,7 +35,6 @@ export class SignupformComponent implements OnInit {
   ngOnInit(): void {
     this.pickupSelection = 'self';
     this.getUser();
-    this.agencyList = agencies as Agency[];
   }
 
   async getUser(): Promise<any> {
@@ -94,7 +92,7 @@ export class SignupformComponent implements OnInit {
     this.noIdChosen = !this.IsIdSelected();
     if (
       this.selectedAgency != undefined &&
-      this.selectedAgency !== '0' &&
+      this.selectedAgency !== 0 &&
       this.newClient.WhoDelivers === 'agency'
     ) {
       let userSelectedAgency = this.agencyList.find(
@@ -141,5 +139,11 @@ export class SignupformComponent implements OnInit {
     this.verify = false;
 
     window.location.reload();
+  }
+
+  sortedAgencies(): any[] {
+    return this.agencyList.sort((a, b) =>
+      a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+    );
   }
 }
