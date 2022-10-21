@@ -169,6 +169,7 @@
             class="form-control"
             name="agencySelect"
             [(ngModel)]="selectedAgency"
+            (change)="setAgencyPickUpInfo()"
           >
             <option selected value="0">Select Agency</option>
             <option
