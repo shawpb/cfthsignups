@@ -170,7 +170,7 @@
             name="agencySelect"
             [(ngModel)]="selectedAgency"
           >
-            <option selected vallue="0">Select Agency</option>
+            <option selected value="0">Select Agency</option>
             <option *ngFor="let agency of agencyList" [ngValue]="agency.id">
               {{ agency.name }}, {{ agency.contactFirstName }}
               {{ agency.contactLastName }}
