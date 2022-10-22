@@ -27,4 +27,9 @@ export class Client {
   public AgencyRepLastName: string;
   public isVeteran: boolean;
   public isDriving: boolean;
+
+  constructor() {
+    this.isVeteran = false;
+    this.isDriving = false;
+  }
 }

@@ -22,6 +22,8 @@ export class SignupformComponent implements OnInit {
   public authUser: User;
   public isAdmin = false;
   public clientRefVerbiage = 'Myself';
+  public showDemographics: boolean = false;
+  public showExtraFields: boolean = false;
   newClient: Client = new Client();
   selectedAgency: number = 0;
   agencyList: any[] = agencies;

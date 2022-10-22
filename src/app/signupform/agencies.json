@@ -3,8 +3,8 @@
     "id": 2,
     "name": "845 Broadway Commons",
     "contactFirstName": "Ed",
-    "contactLastName": "Kowaczyk",
-    "contactPhone": "518-374-9136 x 2800"
+    "contactLastName": "Kowalczyk",
+    "contactPhone": "518-796-7041"
   },
   {
     "id": 3,
@@ -481,13 +481,6 @@
     "contactFirstName": "Demekia",
     "contactLastName": "Santana",
     "contactPhone": "No Number"
-  },
-  {
-    "id": 118,
-    "name": "YMCA",
-    "contactFirstName": "Ed",
-    "contactLastName": "Kowaczyk",
-    "contactPhone": "5187967041"
   },
   {
     "id": 119,
