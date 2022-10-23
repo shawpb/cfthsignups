@@ -6,6 +6,7 @@ import { ClientService } from '../Services/client.service';
 import { AuthService } from '../Services/auth.service';
 import { User } from '../Models/User';
 import agencies from './agencies.json';
+import { NgbDayTemplateData } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
 
 @Component({
   selector: 'app-signupform',
@@ -144,8 +145,36 @@ export class SignupformComponent implements OnInit {
   }
 
   sortedAgencies(): any[] {
-    return this.agencyList.sort((a, b) =>
-      a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-    );
+    return this.agencyList.sort((a, b) => {
+      let returnSortValue = this.sortByAgencyName(a, b);
+      if (returnSortValue == 0) {
+        returnSortValue = this.sortByAgentFirstName(a, b);
+        if (returnSortValue == 0) {
+          returnSortValue = this.sortByAgentLastName(a, b);
+        }
+      }
+
+      return returnSortValue;
+    });
+  }
+
+  private sortByAgencyName(a: any, b: any): number {
+    return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+  }
+
+  private sortByAgentFirstName(a: any, b: any): number {
+    return a.contactFirstName < b.contactFirstName
+      ? -1
+      : a.contactFirstName > b.contactFirstName
+      ? 1
+      : 0;
+  }
+
+  private sortByAgentLastName(a: any, b: any): number {
+    return a.contactLastName < b.contactLastName
+      ? -1
+      : a.contactLastName > b.contactLastName
+      ? 1
+      : 0;
   }
 }
