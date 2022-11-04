@@ -32,6 +32,7 @@ import { UnAuthGuardService } from './guards/unauthguard';
 import { ReportsComponent } from './reports/reports.component';
 import { AdminGuardService } from './guards/adminGuard';
 import { AdminComponent } from './admin/admin.component';
+import { UserIdleModule } from 'angular-user-idle';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AdminComponent } from './admin/admin.component';
     MatIconModule,
     BrowserModule,
     HttpClientModule,
+    UserIdleModule.forRoot({ idle: 60, timeout: 1800, ping: 120 }),
   ],
   providers: [
     AuthGuardService,

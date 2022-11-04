@@ -6,7 +6,7 @@ import { ClientService } from '../Services/client.service';
 import { AuthService } from '../Services/auth.service';
 import { User } from '../Models/User';
 import agencies from './agencies.json';
-import { NgbDayTemplateData } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
+import { UserIdleService } from 'angular-user-idle';
 
 @Component({
   selector: 'app-signupform',
@@ -23,7 +23,7 @@ export class SignupformComponent implements OnInit {
   public authUser: User;
   public isAdmin = false;
   public clientRefVerbiage = 'Myself';
-  public showDemographics: boolean = false;
+  public showDemographics: boolean = true;
   public showExtraFields: boolean = false;
   newClient: Client = new Client();
   selectedAgency: number = 0;
@@ -32,10 +32,26 @@ export class SignupformComponent implements OnInit {
   constructor(
     public clientService: ClientService,
     public router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private userIdle: UserIdleService
   ) {}
 
   ngOnInit(): void {
+    //Start watching for user inactivity.
+    this.userIdle.startWatching();
+
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart();
+
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => {
+      console.log('Time is up!');
+      this.authService.SignOut();
+      this.userIdle.stopTimer();
+      this.userIdle.stopWatching();
+      this.router.navigateByUrl('/login');
+    });
+
     this.pickupSelection = 'self';
     this.getUser();
   }
@@ -74,8 +90,8 @@ export class SignupformComponent implements OnInit {
     }
   }
 
-  SaveClient(): void {
-    this.clientService.AddClient(this.newClient);
+  SaveClient() {
+    return this.clientService.AddClient(this.newClient);
   }
 
   showAlternate(): boolean {
@@ -89,7 +105,7 @@ export class SignupformComponent implements OnInit {
     return false;
   }
 
-  verifyInfo(form): void {
+  verifyInfo(form: { valid: any }): void {
     this.newClient.WhoDelivers = this.pickupSelection;
     this.hasSubmitted = true;
     this.noIdChosen = !this.IsIdSelected();
@@ -131,17 +147,28 @@ export class SignupformComponent implements OnInit {
 
   onSubmit(): void {
     this.newClient.WhoDelivers = this.pickupSelection;
-    this.SaveClient();
-    alert(
-      'Successfully saved: ' +
-        this.newClient.FirstName +
-        ' ' +
-        this.newClient.LastName
-    );
-    this.newClient = new Client();
-    this.verify = false;
+    this.SaveClient().subscribe({
+      next: (requestId: any) => {
+        console.debug('Request Id: ' + requestId);
+        alert(
+          'Successfully saved: ' +
+            this.newClient.FirstName +
+            ' ' +
+            this.newClient.LastName
+        );
+      },
+      error: (error) => {
+        alert('There was an error saving: ' + error.message);
+        console.debug('There was an error!' + error.message);
+      },
+      complete: () => {
+        this.newClient = new Client();
+        this.verify = false;
+        this.hasSubmitted = false;
 
-    window.location.reload();
+        window.location.reload();
+      },
+    });
   }
 
   sortedAgencies(): any[] {
@@ -176,5 +203,21 @@ export class SignupformComponent implements OnInit {
       : a.contactLastName > b.contactLastName
       ? 1
       : 0;
+  }
+
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
   }
 }

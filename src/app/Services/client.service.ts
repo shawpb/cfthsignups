@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Globals } from '../globals';
 import { Client } from '../Models/Client';
@@ -36,11 +37,11 @@ export class ClientService {
     return client;
   }
 
-  AddClient(newClient: Client): void {
-    let addClientResponse: any;
-    this.http
-      .put<Client>(this.globals.apiBaseUrl, newClient, this.httpOptions)
-      .subscribe((x) => (addClientResponse = x));
-    console.log(addClientResponse);
+  AddClient(newClient: Client): Observable<any> {
+    return this.http.put<any>(
+      this.globals.apiBaseUrl,
+      newClient,
+      this.httpOptions
+    );
   }
 }

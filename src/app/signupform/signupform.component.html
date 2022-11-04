@@ -162,7 +162,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group row" *ngif="showDemographics">
+      <div class="form-group row" *ngIf="showDemographics">
         <div class="col-sm">
           <input
             type="checkbox"
@@ -171,17 +171,11 @@
             name="veteran"
             value="true"
             [(ngModel)]="newClient.isVeteran"
-          /><label
-            for="veteranCheckBox"
-            class="checkboxText"
-            #veteran="ngModel"
-            [(ngModel)]="newClient.isVeteran"
-          >
-            Veteran?</label
+          /><label for="veteranCheckBox" class="checkboxText"> Veteran?</label
           ><br />
         </div>
       </div>
-      <div class="form-group row" *ngif="showDemographics">
+      <div class="form-group row" *ngIf="showDemographics">
         <div class="col-sm">
           <input
             type="checkbox"
@@ -190,12 +184,7 @@
             name="driving"
             value="true"
             [(ngModel)]="newClient.isDriving"
-          /><label
-            for="drivingCheckBox"
-            class="checkboxText"
-            #veteran="ngModel"
-            [(ngModel)]="newClient.isDriving"
-          >
+          /><label for="drivingCheckBox" class="checkboxText">
             Driving/Riding?</label
           ><br />
         </div>
